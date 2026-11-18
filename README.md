@@ -2,7 +2,7 @@
 
 **Operational systems assessment, R-based exploratory analysis, future-state design and data engineering.**
 
-This portfolio case study describes an analytical consulting approach: establish how an operational system behaves, diagnose the quality and usefulness of its data, assess workflow and reporting constraints, and translate evidence into a feasible target-state design. A separate, independently authored Python demonstration illustrates one supporting technical control: producing quality-assured analytical records from fictional paginated input.
+This portfolio case study describes an analytical consulting approach: establish how an operational system behaves, diagnose the quality and usefulness of its data, assess workflow and reporting constraints, and translate evidence into a feasible target-state design. Two independent, synthetic implementations illustrate complementary capabilities: an **R current-state analytical audit** and a **Python data-quality pipeline**. Neither uses original client data or implementation code.
 
 ## The problem
 
@@ -32,7 +32,7 @@ The private source archive documents a 2025 consulting engagement that examined 
 - **Target-state design:** separate source, business dimension, intent, outcome and workflow concepts; evaluate standardised application and an external reporting layer where native tooling is insufficient.
 - **Implementation:** use the findings to refine custom data attributes that capture progression through newly created AI-bot chat workflows and support operational reporting.
 
-Read the [analytical consulting case study](docs/analytical-consulting-case-study.md) for the evidence-to-recommendation chain and [technical design notes](docs/design.md) for the independent synthetic ETL example.
+Read the [analytical consulting case study](docs/analytical-consulting-case-study.md) for the evidence-to-recommendation chain, the [reproducible synthetic R audit](docs/r-analytical-demo.md) for worked analytics, and the [technical design notes](docs/design.md) for the independent Python ETL example.
 
 ## Reproducible R analytical demonstration
 
@@ -47,14 +47,18 @@ Rscript analysis/current_state.R data/fictional_conversations.csv output/r-analy
 
 ## What the working code demonstrates
 
-The `pipeline/` example is **a narrow, fictional illustration**, not the archived consulting implementation. It validates paginated snapshots, applies stable identity and revision rules, quarantines invalid rows and produces reproducible quality and summary outputs.
+**R analytics (`analysis/current_state.R`):** A separate fictional 20-conversation dataset is analysed for monthly volume, tagging coverage, tag co-occurrence and data-quality issues. It produces CSV summaries, simple recommendation prompts and ggplot2 figures. The R example does **not** reproduce historical client measurements, workflows or reports.
+
+**Python engineering (`pipeline/etl.py`):** A narrow fictional API-page example validates paginated snapshots, applies stable identity and revision rules, quarantines invalid rows and produces reproducible quality and summary outputs.
 
 ```bash
 python3 -m unittest discover -s tests -v
 python3 -m pipeline.etl --input data/fictional_pages.json --output output
+Rscript tests/test_current_state.R
+Rscript analysis/current_state.R data/fictional_conversations.csv output/r-analysis
 ```
 
-The synthetic fixture produces **2 pages, 4 valid distinct IDs and 1 rejected record**. These figures are not client results. The executable example does **not** implement the R audit or recreate client dashboards.
+The Python fixture produces **2 pages, 4 valid distinct IDs and 1 rejected record**. The separate R fixture includes **20 fictional conversations, 15 tagged and 5 untagged**, spanning three months. These figures are synthetic and unrelated to the consulting engagement. The R chart-generation command requires `ggplot2`; its analytical regression tests use base R. Both implementations have passed their GitHub Actions validation.
 
 ## Consulting outcome and limits
 
