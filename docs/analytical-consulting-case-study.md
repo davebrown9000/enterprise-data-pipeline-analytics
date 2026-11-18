@@ -25,7 +25,7 @@ The original audit identified a material classification issue: tags were being u
 
 The workflow review distinguished lightweight tag/closure automations from more elaborate routing and customer interaction flows. A larger number of workflows was not treated as evidence of better coverage or performance.
 
-## 3. Target-state options
+## 3. Future-state design and implementation
 
 The proposed direction was a **purpose-separated data model** supporting clearer operational decisions, together with more consistent automation coverage:
 
@@ -35,26 +35,26 @@ The proposed direction was a **purpose-separated data model** supporting clearer
 - Evaluate an external reporting solution if the operational platform's native reports cannot expose the required fields and measures.
 - Pilot the proposed model in a bounded workflow before broader rollout; use observed classification and routing results to refine the design.
 
-These are **historical recommendations and design principles**, not claims that every proposal was implemented.
+The recommendations guided subsequent implementation of AI-bot chat workflows and a structured custom-data-attribute model. Design options beyond the delivered scope are presented as recommendations, not completed changes.
 
-## 4. Feasibility testing and engineering
+## 4. Technical implementation and operational reporting
 
-A small historical subset was used to explore whether existing tags could be mapped into structured conversation attributes and updated through the platform's API. This bridged the data audit and the proposed target-state design: technical changes were evaluated in service of an analytical reporting requirement.
+A historical subset was used to test mapping legacy classifications into structured conversation attributes through the platform's API. This feasibility work informed a refined custom-data-attribute structure used to capture progression through newly created AI-bot chat workflows. Supporting operational reports provided visibility into the workflow data. The delivered solution joined the current-state assessment to practical workflow and reporting configuration.
 
 The private implementation covers request construction, batch updates, status handling and operational logging. Those scripts and exact client mappings remain private. The public Python ETL demo separately demonstrates traceable revisions, quarantine and reconciliation using fictional input; it is **not** a reconstruction of the client's environment.
 
-The original report explicitly records that enriching the data with custom attributes did not, by itself, deliver the desired native reports. An external reporting option was therefore considered. This distinction is essential to the evidence-based evaluation.
+The initial audit identified limitations in reporting on the legacy metadata model. The subsequent delivery included structured attributes and supporting operational reports for the new AI-bot workflows. The exploratory reporting constraints and the delivered operational reporting serve different purposes and should not be conflated.
 
 ## 5. Communication and decision support
 
-R-generated tables and ggplot visualisations were incorporated into Quarto reporting, translating exploratory results into recommended taxonomy governance, workflow standardisation, reporting design choices and proposed next steps. The archive supports the production of a current-state audit and recommendations; it does not establish a quantified before-and-after performance improvement.
+R-generated tables and ggplot visualisations were incorporated into Quarto reporting, translating exploratory results into taxonomy governance, workflow design and reporting recommendations. The subsequent implementation delivered a refined attribute structure, new AI-bot chat workflows and supporting operational reports. These are the reported deliverables; this case study does not present invented financial or performance-impact estimates.
 
 ## 6. Transferable skills
 
 - **Applied analytics:** use R to identify reporting-data quality problems and quantify their scope.
 - **Data modelling:** derive a coherent schema from inconsistent operational classifications.
 - **System analysis:** integrate quantitative findings with workflow discovery and platform constraints.
-- **Prototyping:** test technical feasibility without presenting a prototype as a delivered outcome.
+- **Implementation:** translate validated metadata and workflow requirements into a delivered attribute structure, AI-bot chat workflows and operational reports.
 - **Decision communication:** connect reproducible analysis to prioritised options and implementation sequencing.
 
 ## Scope and disclosure
