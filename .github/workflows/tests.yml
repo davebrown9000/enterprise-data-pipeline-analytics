@@ -1,0 +1,35 @@
+name: Synthetic demonstration tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Run Python unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Run synthetic Python ETL
+        run: python -m pipeline.etl --input data/fictional_pages.json --output output
+      - name: Install R and ggplot2 from Ubuntu repositories
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends r-base r-cran-ggplot2
+      - name: Run independent synthetic R analysis tests
+        run: Rscript tests/test_current_state.R
+      - name: Generate synthetic R analysis outputs
+        run: Rscript analysis/current_state.R data/fictional_conversations.csv output/r-analysis
