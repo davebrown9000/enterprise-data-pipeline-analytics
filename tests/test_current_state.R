@@ -1,0 +1,22 @@
+# Base-R regression tests. Run: Rscript tests/test_current_state.R
+source("analysis/current_state.R")
+df <- read_conversations("data/fictional_conversations.csv")
+stopifnot(nrow(df) == 20L, !anyDuplicated(df$conversation_id))
+tags <- expand_tags(df)
+stopifnot(!anyDuplicated(paste(tags$conversation_id, tags$tag)))
+result <- analyse("data/fictional_conversations.csv")
+stopifnot(result$quality$conversations == 20L)
+stopifnot(result$quality$untagged == 5L)
+stopifnot(result$quality$tagged == 15L)
+stopifnot(result$quality$tag_coverage_pct == 75)
+stopifnot(sum(result$monthly$conversations) == 20L)
+stopifnot(identical(as.integer(result$monthly$conversations), c(6L, 6L, 8L)))
+stopifnot(result$cooccurrence$conversations[1] >= 1L)
+stopifnot(nrow(result$recommendations) >= 2L)
+invalid <- df
+invalid$conversation_id[2] <- invalid$conversation_id[1]
+tmp <- tempfile(fileext = ".csv")
+write.csv(invalid[, c("conversation_id", "started_at", "channel", "team", "tags")], tmp, row.names = FALSE, na = "")
+stopifnot(inherits(try(read_conversations(tmp), silent = TRUE), "try-error"))
+unlink(tmp)
+cat("PASS: synthetic R analytical regression checks\n")

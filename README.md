@@ -34,6 +34,17 @@ The private source archive documents a 2025 consulting engagement that examined 
 
 Read the [analytical consulting case study](docs/analytical-consulting-case-study.md) for the evidence-to-recommendation chain and [technical design notes](docs/design.md) for the independent synthetic ETL example.
 
+## Reproducible R analytical demonstration
+
+The separately authored [synthetic R analysis](docs/r-analytical-demo.md) illustrates conversation-level quality profiling, monthly coverage and volume trends, deduplicated tag co-occurrence, and rule-guided reporting recommendations. It generates CSV summaries and two ggplot2 charts from **20 fictional conversations**. No original client scripts, records, configurations or report outputs are present.
+
+```bash
+Rscript tests/test_current_state.R
+Rscript analysis/current_state.R data/fictional_conversations.csv output/r-analysis
+```
+
+**Requirements:** R and `ggplot2` (for the charts). The R illustration and the Python ETL example are independent synthetic examples, not a reproduction of the private operational environment.
+
 ## What the working code demonstrates
 
 The `pipeline/` example is **a narrow, fictional illustration**, not the archived consulting implementation. It validates paginated snapshots, applies stable identity and revision rules, quarantines invalid rows and produces reproducible quality and summary outputs.
