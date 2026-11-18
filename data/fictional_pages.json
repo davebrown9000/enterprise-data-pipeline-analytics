@@ -1,0 +1,12 @@
+[
+  {"page": 1, "records": [
+    {"id": "CASE-001", "updated_at": "2026-01-02T09:00:00Z", "channel": "email", "status": "open", "category": "account"},
+    {"id": "CASE-002", "updated_at": "2026-01-02T10:00:00Z", "channel": "chat", "status": "closed", "category": "billing"},
+    {"id": "CASE-003", "updated_at": "2026-01-02T11:00:00Z", "channel": "web", "status": "open", "category": "question"}
+  ]},
+  {"page": 2, "records": [
+    {"id": "CASE-001", "updated_at": "2026-01-03T09:00:00Z", "channel": "email", "status": "closed", "category": "account"},
+    {"id": "CASE-004", "updated_at": "2026-01-03T09:15:00Z", "channel": "chat", "status": "closed", "category": "technical"},
+    {"id": "CASE-005", "updated_at": "2026-01-03T09:30:00Z", "channel": "fax", "status": "open", "category": "other"}
+  ]}
+]
